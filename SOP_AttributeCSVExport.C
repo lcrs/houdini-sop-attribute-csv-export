@@ -83,7 +83,7 @@ SOP_AttributeCSVExport::cookMySop(OP_Context& context)
     bool create_offset_attribute = evalInt(SOP_ATTRIBUTECSVEXPORT_CREATE_OFFSET_ATTRIBUTE, 0, t);
     UT_String csv_filename;
 
-    UT_Interrupt* boss = UTgetInterrupt();
+    UTgetInterrupt();
 
     if(lockInputs(context) >= UT_ERROR_ABORT)
     {
@@ -178,7 +178,6 @@ SOP_AttributeCSVExport::cookMySop(OP_Context& context)
 
     writeCSVValues(csv_attr_names, stream);
 
-    const GA_AttributeDict& attr_dict = gdp->getAttributeDict(attrib_owner);
     UT_Array<UT_DeepString> values;
 
     switch(attrib_owner)
