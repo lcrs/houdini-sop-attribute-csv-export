@@ -176,8 +176,6 @@ SOP_AttributeCSVExport::cookMySop(OP_Context& context)
         }
     }
 
-    writeCSVValues(csv_attr_names, stream);
-
     UT_Array<UT_DeepString> values;
 
     switch(attrib_owner)
