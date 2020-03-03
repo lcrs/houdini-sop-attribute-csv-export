@@ -524,9 +524,9 @@ SOP_AttributeCSVExport::processAttributeValue(const GA_Attribute* attr, GA_Offse
             {
                 if(attrib.isValid())
                 {
-                    UT_DeepString result;
-                    UT_DeepString value = handle.get(offset, idx);
-                    value.sprintf("%s", value.buffer());
+                    UT_StringHolder sh = handle.get(offset, idx);
+                    UT_DeepString value;
+                    value.sprintf("%s", sh.buffer());
                     values.append(value);
                 }
                 else
