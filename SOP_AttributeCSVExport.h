@@ -5,7 +5,7 @@
 #include <UT/UT_OFStream.h>
 #include <UT/UT_DeepString.h>
 
-class SOP_API SOP_AttributeCSVExport : public SOP_Node
+class SOP_AttributeCSVExport : public SOP_Node
 {
     public:
 
