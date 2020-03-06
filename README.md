@@ -2,6 +2,8 @@
 
 [Houdini](http://www.sidefx.com/index.php) SOP node which lets you export attribute values from geometry (points, vertices, primitives or detail) into a CSV file.
 
+## Binaries
+* https://github.com/lcrs/houdini-sop-attribute-csv-export/releases
 
 ## Building
 
