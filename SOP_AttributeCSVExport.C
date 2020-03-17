@@ -14,11 +14,13 @@
 #define SOP_ATTRIBUTECSVEXPORT_FILE "file"
 #define SOP_ATTRIBUTECSVEXPORT_SKIP_INTRINSIC_ATTRIBUTES "csv_skip_intrinsic"
 #define SOP_ATTRIBUTECSVEXPORT_CREATE_OFFSET_ATTRIBUTE "csv_create_offset_attribute"
+#define SOP_ATTRIBUTECSVEXPORT_ATTRIB_ORDER "attrib_order"
 
 static PRM_Name s_name_file(SOP_ATTRIBUTECSVEXPORT_FILE, "CSV File");
 static PRM_Name s_name_class(SOP_ATTRIBUTECSVEXPORT_CLASS, "Class");
 static PRM_Name s_name_skip_intrinsic_attributes(SOP_ATTRIBUTECSVEXPORT_SKIP_INTRINSIC_ATTRIBUTES, "Skip Intrinsic Attributes");
 static PRM_Name s_name_create_offset_attribute(SOP_ATTRIBUTECSVEXPORT_CREATE_OFFSET_ATTRIBUTE, "Create Offset Attribute");
+static PRM_Name s_name_attrib_order(SOP_ATTRIBUTECSVEXPORT_ATTRIB_ORDER, "Attribute order");
 
 static PRM_Name s_name_class_types[] =
 {
@@ -32,6 +34,7 @@ static PRM_Name s_name_class_types[] =
 static PRM_ChoiceList s_choicelist_class_type(PRM_CHOICELIST_SINGLE, s_name_class_types);
 static PRM_Default s_default_skip_intrinsic_attributes(true);
 static PRM_Default s_default_create_offset_attribute(true);
+static PRM_Default s_default_attrib_order(PRM_STRING, "P Cd");
 
 static PRM_SpareData s_spare_file_picker(PRM_SpareArgs() << PRM_SpareToken(PRM_SpareData::getFileChooserModeToken(),
     PRM_SpareData::getFileChooserModeValRead()) << PRM_SpareToken(PRM_SpareData::getFileChooserPatternToken(),
@@ -43,6 +46,7 @@ SOP_AttributeCSVExport::myTemplateList[] = {
     PRM_Template(PRM_ORD, 1, &s_name_class, 0, &s_choicelist_class_type),
     PRM_Template(PRM_TOGGLE, 1, &s_name_skip_intrinsic_attributes, &s_default_skip_intrinsic_attributes),
     PRM_Template(PRM_TOGGLE, 1, &s_name_create_offset_attribute, &s_default_create_offset_attribute),
+    PRM_Template(PRM_STRING, 1, &s_name_attrib_order, &s_default_attrib_order),
     PRM_Template()
 };
 
