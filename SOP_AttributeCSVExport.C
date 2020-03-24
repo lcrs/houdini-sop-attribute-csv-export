@@ -128,6 +128,31 @@ SOP_AttributeCSVExport::cookMySop(OP_Context& context)
         return error();
     }
 
+    UT_String csv_attriborder;
+    evalString(csv_attriborder, SOP_ATTRIBUTECSVEXPORT_ATTRIB_ORDER, 0, t);
+    if(!csv_attriborder || !csv_attriborder.length())
+    {
+        UT_WorkBuffer buf;
+        buf.sprintf("Attribute order was not specified.");
+        addWarning(SOP_MESSAGE, buf.buffer());
+
+        unlockInputs();
+        return error();
+    }
+    UT_Array<UT_String> attribs;
+    csv_attriborder.tokenize(attribs);
+    for(UT_String s : attribs) {
+        GA_Attribute* attr = gdp->findPointAttribute(s);
+        if(!attr) {
+            UT_WorkBuffer buf;
+            buf.sprintf("Attribute %s does not exist.", s.c_str());
+            addWarning(SOP_MESSAGE, buf.buffer());
+
+            unlockInputs();
+            return error();
+        }
+    }
+
     UT_Array<UT_DeepString> csv_attr_names;
     const GA_Attribute* attr = nullptr;
 
@@ -194,12 +219,12 @@ SOP_AttributeCSVExport::cookMySop(OP_Context& context)
                 {
                     createOffsetAttributeCSVValue(point_offset, values);
                 }
-
-                GA_FOR_ALL_POINT_ATTRIBUTES(gdp, attr)
-                {
-                    processAttributeValue(attr, point_offset, attrib_owner, skip_intrinsics, values);
+             
+                for(UT_String s : attribs) {
+                    attr = gdp->findPointAttribute(s);
+                    processAttributeValue(attr, point_offset, attrib_owner, skip_intrinsics, values);    
                 }
-
+                
                 writeCSVValues(values, stream);
                 values.clear();
             }
